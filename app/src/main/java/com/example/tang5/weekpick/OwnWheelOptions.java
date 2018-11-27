@@ -7,7 +7,6 @@ import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.contrarywind.listener.OnItemSelectedListener;
 import com.contrarywind.view.WheelView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OwnWheelOptions<T> {
@@ -115,7 +114,7 @@ public class OwnWheelOptions<T> {
                 int opt2Select = 0;
                 if (mOptions2Items == null) {//只有1级联动数据
                     if (optionsSelectChangeListener != null) {
-                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), -1, -1, -1);
+                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), 0, 0, 0);
                     }
                 } else {
                     if (!isRestoreItem) {
@@ -124,14 +123,13 @@ public class OwnWheelOptions<T> {
                         opt2Select = opt2Select >= mOptions2Items.get(index).size() - 1 ? mOptions2Items.get(index).size() - 1 : opt2Select;
                     }
                     wv_option2.setAdapter(new ArrayWheelAdapter(mOptions2Items.get(index)));
-                    wv_option2.setIsOptions(true);
                     wv_option2.setCurrentItem(opt2Select);
 
                     if (mOptions3Items != null) {
                         wheelListener_option2.onItemSelected(opt2Select);
                     } else {//只有2级联动数据，滑动第1项回调
                         if (optionsSelectChangeListener != null) {
-                            optionsSelectChangeListener.onOptionsSelectChanged(index, opt2Select, -1, -1);
+                            optionsSelectChangeListener.onOptionsSelectChanged(index, opt2Select, 0, 0);
                         }
                     }
                 }
@@ -147,16 +145,14 @@ public class OwnWheelOptions<T> {
                     opt1Select = opt1Select >= mOptions3Items.size() - 1 ? mOptions3Items.size() - 1 : opt1Select;
                     index = index >= mOptions2Items.get(opt1Select).size() - 1 ? mOptions2Items.get(opt1Select).size() - 1 : index;
                     int opt3 = 0;
-                    if (index == -1) {
+                   /* if (index == -1) {
                         if (optionsSelectChangeListener != null) {
-                            optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, -1, -1);
+                            optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, 0, 0);
                         }
                         wv_option3.setAdapter(new ArrayWheelAdapter(new ArrayList()));
                         wv_option4.setAdapter(new ArrayWheelAdapter(new ArrayList()));
-                        wv_option3.setIsOptions(false);
-                        wv_option4.setIsOptions(false);
                         return;
-                    }
+                    }*/
                     if (!isRestoreItem) {
                         // wv_option3.getCurrentItem() 上一个opt3的选中位置
                         //新opt3的位置，判断如果旧位置没有超过数据范围，则沿用旧位置，否则选中最后一项
@@ -164,7 +160,6 @@ public class OwnWheelOptions<T> {
                                 mOptions3Items.get(opt1Select).get(index).size() - 1 : wv_option3.getCurrentItem();
                     }
                     wv_option3.setAdapter(new ArrayWheelAdapter(mOptions3Items.get(wv_option1.getCurrentItem()).get(index)));
-                    wv_option3.setIsOptions(true);
                     wv_option3.setCurrentItem(opt3);
 
                     if (mOptions4Items != null) {
@@ -172,12 +167,12 @@ public class OwnWheelOptions<T> {
                     } else {//只有3级联动数据，滑动第2项回调
                         //3级联动数据实时回调
                         if (optionsSelectChangeListener != null) {
-                            optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, opt3, -1);
+                            optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, opt3, 0);
                         }
                     }
                 } else {//只有2级联动数据，滑动第2项回调
                     if (optionsSelectChangeListener != null) {
-                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, -1, -1);
+                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), index, 0, 0);
                     }
                 }
             }
@@ -193,14 +188,13 @@ public class OwnWheelOptions<T> {
                     opt1Select = opt1Select >= mOptions4Items.size() - 1 ? mOptions4Items.size() - 1 : opt1Select;
                     opt2Select = opt2Select >= options4Items.get(opt1Select).size() - 1 ? options4Items.get(opt1Select).size() - 1 : opt2Select;
                     index = index >= mOptions3Items.get(opt1Select).get(opt2Select).size() - 1 ? mOptions3Items.get(opt1Select).get(opt2Select).size() - 1 : index;
-                    if (index == -1) {
+                    /*if (index == -1) {
                         if (optionsSelectChangeListener != null) {
-                            optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), wv_option2.getCurrentItem(), index, -1);
+                            optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), wv_option2.getCurrentItem(), index, 0);
                         }
                         wv_option4.setAdapter(new ArrayWheelAdapter(new ArrayList()));
-                        wv_option4.setIsOptions(false);
                         return;
-                    }
+                    }*/
                     int opt4 = 0;
                     if (!isRestoreItem) {
                         // wv_option4.getCurrentItem() 上一个opt4的选中位置
@@ -210,7 +204,6 @@ public class OwnWheelOptions<T> {
                     }
 
                     wv_option4.setAdapter(new ArrayWheelAdapter(mOptions4Items.get(wv_option1.getCurrentItem()).get(wv_option2.getCurrentItem()).get(index)));
-                    wv_option4.setIsOptions(true);
                     wv_option4.setCurrentItem(opt4);
 
                     //4级联动数据实时回调
@@ -219,7 +212,7 @@ public class OwnWheelOptions<T> {
                     }
                 } else {//只有3级联动数据，滑动第3项回调
                     if (optionsSelectChangeListener != null) {
-                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), wv_option2.getCurrentItem(), index, -1);
+                        optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), wv_option2.getCurrentItem(), index, 0);
                     }
                 }
             }
@@ -239,19 +232,6 @@ public class OwnWheelOptions<T> {
             wv_option4.setOnItemSelectedListener(new OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(int index) {
-                    int opt1Select = wv_option1.getCurrentItem();
-                    int opt2Select = wv_option2.getCurrentItem();
-                    int opt3Select = wv_option3.getCurrentItem();
-                    opt1Select = opt1Select >= mOptions4Items.size() - 1 ? mOptions4Items.size() - 1 : opt1Select;
-                    opt2Select = opt2Select >= options4Items.get(opt1Select).size() - 1 ? options4Items.get(opt1Select).size() - 1 : opt2Select;
-                    opt3Select = opt3Select >= options4Items.get(opt1Select).get(opt2Select).size() - 1 ? options4Items.get(opt1Select).get(opt2Select).size() - 1 : opt3Select;
-                    index = index >= mOptions4Items.get(opt1Select).get(opt2Select).get(opt3Select).size() - 1 ? mOptions4Items.get(opt1Select).get(opt2Select).get(opt3Select).size() - 1 : index;
-                    if (index == -1) {
-                        if (optionsSelectChangeListener != null) {
-                            optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), wv_option2.getCurrentItem(), wv_option3.getCurrentItem(), -1);
-                        }
-                        return;
-                    }
                     optionsSelectChangeListener.onOptionsSelectChanged(wv_option1.getCurrentItem(), wv_option2.getCurrentItem(), wv_option3.getCurrentItem(), index);
                 }
             });
@@ -456,22 +436,22 @@ public class OwnWheelOptions<T> {
         int[] currentItems = new int[4];
         currentItems[0] = wv_option1.getCurrentItem();
 
-        if (mOptions2Items != null && mOptions2Items.size() > 0 && mOptions2Items.get(currentItems[0]) != null) {//非空判断
-            currentItems[1] = wv_option2.getCurrentItem() > (mOptions2Items.get(currentItems[0]).size() - 1) ? -1 : wv_option2.getCurrentItem();
+        if (mOptions2Items != null && mOptions2Items.size() > 0) {//非空判断
+            currentItems[1] = wv_option2.getCurrentItem() > (mOptions2Items.get(currentItems[0]).size() - 1) ? 0 : wv_option2.getCurrentItem();
         } else {
-            currentItems[1] = -1;
+            currentItems[1] = wv_option2.getCurrentItem();
         }
 
-        if (mOptions3Items != null && mOptions3Items.size() > 0 && currentItems[1] != -1) {//非空判断
-            currentItems[2] = wv_option3.getCurrentItem() > (mOptions3Items.get(currentItems[0]).get(currentItems[1]).size() - 1) ? -1 : wv_option3.getCurrentItem();
+        if (mOptions3Items != null && mOptions3Items.size() > 0) {//非空判断
+            currentItems[2] = wv_option3.getCurrentItem() > (mOptions3Items.get(currentItems[0]).get(currentItems[1]).size() - 1) ? 0 : wv_option3.getCurrentItem();
         } else {
-            currentItems[2] = -1;
+            currentItems[2] = wv_option3.getCurrentItem();
         }
 
-        if (mOptions4Items != null && mOptions4Items.size() > 0 && currentItems[2] != -1) {//非空判断
-            currentItems[3] = wv_option4.getCurrentItem() > (mOptions4Items.get(currentItems[0]).get(currentItems[1]).get(currentItems[2]).size() - 1) ? -1 : wv_option4.getCurrentItem();
+        if (mOptions4Items != null && mOptions4Items.size() > 0) {//非空判断
+            currentItems[3] = wv_option4.getCurrentItem() > (mOptions4Items.get(currentItems[0]).get(currentItems[1]).get(currentItems[2]).size() - 1) ? 0 : wv_option4.getCurrentItem();
         } else {
-            currentItems[3] = -1;
+            currentItems[3] = wv_option4.getCurrentItem();
         }
         return currentItems;
     }

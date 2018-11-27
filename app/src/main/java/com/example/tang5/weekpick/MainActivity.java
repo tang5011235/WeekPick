@@ -77,20 +77,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onOptionsSelectChanged(int options1, int options2, int options3, int options4) {
                         Log.e("setOptionr", "onOptionsSelectChanged: " + options1 + " " + options2 + " " + options3 + " " + options4);
-                        if (options2 == -1) {
-                            mPvOptions.setTitleText(mOptions1Items.get(options1));
-                        } else if (options3 == -1) {
-                            mPvOptions.setTitleText(mOptions1Items.get(options1) +
-                                    mOptions2Items.get(options1).get(options2));
-                        } else if (options4 == -1) {
-                            mPvOptions.setTitleText(mOptions1Items.get(options1) +
-                                    mOptions2Items.get(options1).get(options2) +
-                                    mOptions3Items.get(options1).get(options2).get(options3));
-                        } else {
-                            mPvOptions.setTitleText(mOptions1Items.get(options1) +
-                                    mOptions2Items.get(options1).get(options2) +
-                                    mOptions3Items.get(options1).get(options2).get(options3) +
-                                    mOptions4Items.get(options1).get(options2).get(options3).get(options4));
+
+                        if (options1 <= mOptions1Items.size() - 1) {
+                            if (options2 <= mOptions2Items.get(options1).size() - 1) {
+                                if (options3 <= mOptions3Items.get(options1).get(options2).size() - 1) {
+                                    if (options4 <= mOptions4Items.get(options1).get(options2).get(options3).size() - 1) {
+                                        mPvOptions.setTitleText(mOptions1Items.get(options1) +
+                                                mOptions2Items.get(options1).get(options2) +
+                                                mOptions3Items.get(options1).get(options2).get(options3) +
+                                                mOptions4Items.get(options1).get(options2).get(options3).get(options4));
+                                    }
+                                }
+                            }
                         }
                     }
                 }).build();
